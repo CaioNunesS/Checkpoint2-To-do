@@ -1,4 +1,5 @@
 /* Email: Deve possuir um formato válido (RegExp) */
+let email = document.getElementById("inputEmail")
 
 email.addEventListener("focus", function () {
     console.log("Clicou no campo");
