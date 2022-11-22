@@ -2,19 +2,18 @@
 let email = document.getElementById("inputEmail")
 
 email.addEventListener("focus", function () {
-    console.log("Clicou no campo");
     email.style.backgroundColor = "#CDC6C68D"
 });
 
 email.addEventListener("keyup", function () {
 
-    let emailValidacao = document.getElementById("inputEmail");
+    let emailValidation = document.getElementById("emailValidation");
     email.style.backgroundColor = "#FFFFFF"
 
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value)) {
         //Sucesso na validação
         email.style.border = ""
-        emailValidacao.innerText = ""
+        emailValidation.innerText = ""
         email.style.border = "solid 1.5px #13A02D";
         //Habilitando o botão de salvar
         btn.removeAttribute("disabled");
@@ -24,8 +23,8 @@ email.addEventListener("keyup", function () {
         //Falha na validação
         email.style.border = "solid 1.5px #D8341B";
         nomeValidacao.innerText = "Informe no mínimo 4 caracteres";
-        emailValidacao.style.color = "#D8341B";
-        emailValidacao.style.fontWeight = "bold";
+        emailValidation.style.color = "#D8341B";
+        emailValidation.style.fontWeight = "bold";
         btn.setAttribute("disabled", true);
         btn.style.backgroundColor = "#787676"
     }
