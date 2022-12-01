@@ -1,44 +1,45 @@
 ///Desativando botão de acessar
 
-function checkInputs(inputs) {
+// function checkInputs(inputs) {
 
-  var filled = true;
+//   var filled = true;
 
-inputs.forEach(function(input) {
+// inputs.forEach(function(input) {
   
-  if(input.value === "") {
-      filled = false;
-  }
+//   if(input.value === "") {
+//       filled = false;
+//   }
 
-  });
+//   });
 
-return filled;
+// return filled;
 
-}
+// }
 
-var inputs = document.querySelectorAll("input");
-var button = document.querySelector("button");
+// var inputs = document.querySelectorAll("input");
+// var button = document.querySelector("button");
 
-inputs.forEach(function(input) {
+// inputs.forEach(function(input) {
   
-input.addEventListener("keyup", function() {
+// input.addEventListener("keyup", function() {
 
-  if(checkInputs(inputs)) {
-    button.disabled = false;
-    button.style.opacity = ""
-  } else {
-    button.disabled = true;
-    button.style.opacity = "35%"
-  }
+//   if(checkInputs(inputs)) {
+//     button.disabled = false;
+//     button.style.opacity = ""
+//   } else {
+//     button.disabled = true;
+//     button.style.opacity = "35%"
+//   }
 
-});
+// });
 
-});
+// });
 
 
 ////////Validando O E-MAIL
 let btn = document.getElementById("botao");
 btn.setAttribute("disabled", true);
+btn.style.opacity = "40%"
 let email = document.getElementById("inputEmail")
 let validaEmail = false
 
@@ -126,22 +127,30 @@ senha.addEventListener("focus", function () {
 });
 senha.addEventListener("keyup", function () {
   senha.value.toString()
-  if ((senha.value)) {
+  if ((senha.value.length < 8)) {
 
     validaSenha.innerText = "Campo obrigatório"
     validaSenha.style.color = "#D53A3A"
     validaSenha.style.fontWeight = "bold"
     console.log(senha.value.length > 8)
+    validacaoSenha = false;
   }
 
   if (senha.value.length >= 8) {
     validaSenha.innerText = ""
-    validacaoSenha = true
+    validacaoSenha = true;
     
   }
-
-
+  console.log(validaEmail)
+  console.log(validacaoSenha)
+  if (validaEmail  && validacaoSenha){
+    btn.removeAttribute("disabled")
+    btn.style.opacity = null
+  }
 })
-if ((validaEmail=true) && (validacaoSenha=true)){
-  btn.removeAttribute("disabled")
-}
+
+//normalizando as entradas
+
+let emailNormalizado = email.trim
+let senhaNormalizada = senha.trim
+
