@@ -1,4 +1,3 @@
-//------------------------------------------- IMPORTAÇÕES
 //Importando a função de criar usuaŕios
 import createUSer from './requisicoes/createUser.js'
 //importando função para limpar os campos
@@ -10,7 +9,6 @@ import primeiraEmMaiusculo from '../constants/formatName.js'
 //importando a função para mostrar a senha
 import verSenha from '../constants/mostrarSenha.js'
 
-//------------------------------------------- VARIÁVEIS LOCAIS
 
 
 // Selecionando as divs que contém a classe form-control
@@ -30,7 +28,7 @@ var formValidation = {
   passwordConfirm: false
 }
 
-//------------------------------------------- INÍCIO FUNÇÃO PARA CONTROLAR OS DADOS
+// FUNÇÃO PARA CONTROLAR OS DADOS
 
 
 const signup = () => {
@@ -73,7 +71,7 @@ const signup = () => {
 
 
 
-  //------------------------------------------- EVENTO DE CLIQUE NO BOTÃO
+  // EVENTO DE CLIQUE NO BOTÃO
 
   createUserButtonElement.addEventListener('click', event => {
     event.preventDefault()

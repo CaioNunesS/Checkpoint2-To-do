@@ -16,7 +16,7 @@ let formValidationLogin = {
   password: false
 }
 
-//------------------------------------------- INÍCIO FUNÇÃO PARA CONTROLAR OS DADOS
+// FUNÇÃO PARA CONTROLAR OS DADOS
 const index = () => {
   for (let control of inputElement) {
     const controlInputElement = control.children[1]

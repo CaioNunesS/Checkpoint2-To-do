@@ -1,9 +1,7 @@
-//------------------------------------------- IMPORTAÇÕES
 import getTasks from './requisicoes/getTasks.js'
 import createTask from './requisicoes/createTasks.js'
 import userGetMe from './requisicoes/userGetMe.js'
 
-//------------------------------------------- VARIÁVEIS LOCAIS
 
 const token = localStorage.getItem('token')
 
@@ -22,7 +20,7 @@ let novaTarefa = {
 
 
 
- //------------------------------------------- INÍCIO FUNÇÃO PARA CONTROLAR OS DADOS
+ // FUNÇÃO PARA CONTROLAR OS DADOS
 
 const verificaStatus = () =>{
   if (token === null) {
@@ -43,7 +41,7 @@ const verificaStatus = () =>{
     </div>    
     `
 
-    //------------------------------------------- ENVIANDO PARA A PÁGINA DE LOGIN SE TECLAR OU CLICAR
+    // ENVIANDO PARA A PÁGINA DE LOGIN SE TECLAR OU CLICAR
     document.body.addEventListener('click', event => {
       window.location.href = '../index.html'
     })
@@ -55,7 +53,6 @@ const verificaStatus = () =>{
 
 
 
-//------------------------------------------- INÍCIO FUNÇÃO PARA CONTROLAR OS DADOS
 const tarefas = () => {
  
   verificaStatus()
@@ -88,7 +85,7 @@ const tarefas = () => {
     
   })
 
-  //------------------------------------------- LOGOUT - USUÁRIO ENCERRA O SISTEMA
+  //LOGOUT
   finalizarSessao.addEventListener('click', event => {
     const Toast = Swal.mixin({
       toast: true,
