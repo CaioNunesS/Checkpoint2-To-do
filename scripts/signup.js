@@ -1,39 +1,45 @@
-///Desativando botão de criar conta
+// ///Desativando botão de criar conta
 
-function checkInputs(inputs) {
+// function checkInputs(inputs) {
 
-    var filled = true;
+//     var filled = true;
   
-  inputs.forEach(function(input) {
+//   inputs.forEach(function(input) {
     
-    if(input.value === "") {
-        filled = false;
-    }
+//     if(input.value === "") {
+//         filled = false;
+//     }
   
-    });
+//     });
   
-  return filled;
+//   return filled;
   
-  }
+//   }
   
-  var inputs = document.querySelectorAll("input");
-  var button = document.querySelector("button");
+//   var inputs = document.querySelectorAll("input");
+//   var button = document.querySelector("button");
   
-  inputs.forEach(function(input) {
+//   inputs.forEach(function(input) {
     
-  input.addEventListener("keyup", function() {
+//   input.addEventListener("keyup", function() {
   
-    if(checkInputs(inputs)) {
-      button.disabled = false;
-      button.style.opacity = ""
-    } else {
-      button.disabled = true;
-      button.style.opacity = "35%"
-    }
+//     if(checkInputs(inputs)) {
+//       button.disabled = false;
+//       button.style.opacity = ""
+//     } else {
+//       button.disabled = true;
+//       button.style.opacity = "35%"
+//     }
   
-  });
+//   });
   
-  });
+//   });
+
+let btn = document.getElementById("btn");
+btn.setAttribute("disabled", true);
+btn.style.opacity = "40%";
+
+//validando campo "nome"
 
   let inputName = document.getElementById("inputName")
   let nameRegistration = document.getElementById("nameRegistration")
@@ -64,7 +70,7 @@ function checkInputs(inputs) {
   
   });
 
-  
+  /// validando campo "sobrenome"
   let lastName = document.getElementById("lastName");
   let lastNameRegistration = document.getElementById("lastNameRegistration");
   let validaLastName = false;
@@ -94,10 +100,10 @@ function checkInputs(inputs) {
   
   })
 
-
+///validando campo "email"
   let inputEmailValidation = document.getElementById("inputEmailValidation");
   let validationEmail = document.getElementById("emailValidation");
-  validaEmailSignup = true;
+  let validaEmailSignup = true;
 
   inputEmailValidation.addEventListener("focus", function () {
     inputEmailValidation.style.backgroundColor = "#E2DCDC"
@@ -129,6 +135,7 @@ function checkInputs(inputs) {
   
   });
 
+  ///validando campo "senha"
   let pwdRegistration = document.getElementById("pwdRegistration");
   let pwd = document.getElementById("pwd");
   let validaPwdRegistration = false;
@@ -166,6 +173,7 @@ function checkInputs(inputs) {
   
   });
 
+  ///validando campo "confirmar a senha"
 
   let pwdValidation = document.getElementById("pwdValidation");
   let pwdValidati = document.getElementById("pwdValidati");
@@ -175,8 +183,8 @@ function checkInputs(inputs) {
     pwdValidation.style.backgroundColor = "#E2DCDC"
   });
 
-  pwdValidation.addEventListener("keyup", function (){
-
+  pwdValidation.addEventListener("keyup", function (event){
+console.log(event);
 
     if(pwdValidation.value === pwdRegistration.value){
       pwdValidation.value.toString()
@@ -202,7 +210,18 @@ function checkInputs(inputs) {
       pwdValidati.style.fontWeight = "bold"
       pwdValidation.style.border = "solid 1.5px #D8341B";
     }
-  })
+    
+    if(validaNome && validaLastName && validaEmailSignup && validaPwdRegistration && validaPwd){
+
+      btn.removeAttribute("disabled")
+      btn.style.opacity = null
+    }
+
+  // console.log(pwdValidation.value);
+  });
+  
+    // /validando o btn
+
 
 
 
