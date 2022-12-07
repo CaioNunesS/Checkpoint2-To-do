@@ -44,6 +44,8 @@ btn.style.opacity = "40%";
   let inputName = document.getElementById("inputName")
   let nameRegistration = document.getElementById("nameRegistration")
   let validaNome = false;
+  
+  let normalizeInputName = inputName.trim;
 
   inputName.addEventListener("focus", function () {
     inputName.style.backgroundColor = "#E2DCDC"
@@ -219,6 +221,8 @@ console.log(event);
 
   // console.log(pwdValidation.value);
   });
+  
+
   
     // /validando o btn
 

@@ -1,40 +1,3 @@
-///Desativando botão de acessar
-
-// function checkInputs(inputs) {
-
-//   var filled = true;
-
-// inputs.forEach(function(input) {
-  
-//   if(input.value === "") {
-//       filled = false;
-//   }
-
-//   });
-
-// return filled;
-
-// }
-
-// var inputs = document.querySelectorAll("input");
-// var button = document.querySelector("button");
-
-// inputs.forEach(function(input) {
-  
-// input.addEventListener("keyup", function() {
-
-//   if(checkInputs(inputs)) {
-//     button.disabled = false;
-//     button.style.opacity = ""
-//   } else {
-//     button.disabled = true;
-//     button.style.opacity = "35%"
-//   }
-
-// });
-
-// });
-
 
 ////////Validando O E-MAIL
 let btn = document.getElementById("botao");
@@ -60,21 +23,11 @@ email.addEventListener("keyup", function () {
 
   //Valida se o campo É VAZIO
   if (!email.value) { //Se não foi preenchido
-    // troca o fundo
-    //   email.style.border = "solid 1.5px #13A02D";
 
     //Seta a mensage no small (e configura)
     emailValidation.innerText = "Campo obrigatório"
     emailValidation.style.color = "#D53A3A"
     emailValidation.style.fontWeight = "bold"
-
-    //Bloqueado o botão de salvar
-    //   botaoCapturado.setAttribute("disabled", true);
-    //Trocando a cor do botão
-    //   botaoCapturado.style.backgroundColor = "#908E8E"
-
-    //Seta a variável para falso
-    //   emailFormularioOk = false;
 
     //Valida de o email está em um formato correto
   } else if (!email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) { //Testa o erro
@@ -87,14 +40,6 @@ email.addEventListener("keyup", function () {
     emailValidation.style.color = "#D53A3A"
     emailValidation.style.fontWeight = "bold"
 
-    //Bloqueado o botão de salvar
-    //   botaoCapturado.setAttribute("disabled", true);
-    //Trocando a cor do botão
-    //   botaoCapturado.style.backgroundColor = "#908E8E"
-
-    //Seta a variável para falso
-    //   emailFormularioOk = false;
-
   } else {
     validaEmail = true
     //Se o campo estiver ok
@@ -103,15 +48,6 @@ email.addEventListener("keyup", function () {
 
     //Seta o BG do input como Sucesso
     email.style.border = "solid 1.5px #13A02D";
-
-    //Seta a variável de controlle do formulário
-    //   emailFormularioOk = true;
-
-    //   if (nomeFormularioOk && emailFormularioOk) {
-    //     //Retorna o botão para "habilitado"
-    //     botaoCapturado.removeAttribute("disabled");
-    //     botaoCapturado.style.backgroundColor = "#0b5ed7"
-    //   }
   }
 
 });
@@ -127,7 +63,7 @@ senha.addEventListener("focus", function () {
 });
 senha.addEventListener("keyup", function () {
   senha.value.toString()
-  if ((senha.value.length < 8)) {
+  if ((senha.value == "")) {
 
     validaSenha.innerText = "Campo obrigatório"
     validaSenha.style.color = "#D53A3A"
