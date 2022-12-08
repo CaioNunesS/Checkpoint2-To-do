@@ -1,7 +1,7 @@
 //------------------------------------------- IMPORTAÇÕES
-import { BASE_URL } from '../../constants/base_url.js'
-import requestHeader from '../../constants/headerRequest.js'
-import { loading } from '../../constants/loading.js'
+import { BASE_URL } from '../../constants/base_url'
+import requestHeader from '../../constants/headerRequest'
+import { loading } from '../../constants/loading'
 
 //------------------------------------------- INÍCIO FUNÇÃO PARA CONTROLAR E ENVIAR OS DADOS PARA A API
 const createUser = (dadosObjetoUsuario, botaoCriaUsuario) => {

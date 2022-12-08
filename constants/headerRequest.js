@@ -1,6 +1,6 @@
 const requestHeader = {
   Accept: 'Application/json',
-  'Content-Type': 'application/json',
+  'Content-Type': 'application/json'
   
 }
 

@@ -1,4 +1,4 @@
-//Função para limpar os campos dos objetos, utilizados para limpar formulários e formulários
+//Função para limpar os campos dos objetos, utilizados para limpar formulários e inputs
 //1º parãmetro recebe a referencia dos inputs, 2º parâmetro recebe o objeto que será limpo
 
 

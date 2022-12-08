@@ -1,9 +1,9 @@
-import signup from './signup'
+import signup from './signup.js'
 import index from './index.js'
 import tarefas from './tarefas.js'
 
 if (
-  location.pathname === '/signup.html'
+  location.pathname === '/cadastro.html'
   || location.pathname === '/Checkpoint2-To-do/signup.html'
 ) {
   signup()

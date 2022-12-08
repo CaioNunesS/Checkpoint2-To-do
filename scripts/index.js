@@ -1,5 +1,5 @@
 //------------------------------------------- IMPORTAÇÕES
-import loginUser from './requisicoes/loginUser.js'
+import loginUser from './requisicoes/loginUser'
 import { loading } from '../constants/loading.js'
 import { limparValorDeObjetos } from '../constants/limparCampos.js'
 import verSenha from '../constants/mostrarSenha.js'
@@ -56,8 +56,4 @@ verSenha()
     limparValorDeObjetos(inputElement)
   })
 }
-
-//normalizando as entradas
-
-let emailNormalizado = email.trim
-let senhaNormalizada = senha.trim
+export default index
