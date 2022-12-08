@@ -135,9 +135,9 @@ btn.style.opacity = "40%";
   
     }
   })
-}
 
-export default signup
+
+// export default signup
 
   ///validando campo "senha"
   let pwdRegistration = document.getElementById("pwdRegistration");
@@ -174,6 +174,7 @@ export default signup
       pwd.style.fontWeight = "bold"
       pwdRegistration.style.border = "solid 1.5px #D8341B";
     }
+  });
 
 
   ///validando campo "confirmar a senha"

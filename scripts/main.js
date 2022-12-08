@@ -1,10 +1,10 @@
-import signup from './signup.js'
+import signup from './signup'
 import index from './index.js'
 import tarefas from './tarefas.js'
 
 if (
-  location.pathname === '/cadastro.html'
-  || location.pathname === '/Checkpoint2-To-do/cadastro.html'
+  location.pathname === '/signup.html'
+  || location.pathname === '/Checkpoint2-To-do/signup.html'
 ) {
   signup()
 } else if (

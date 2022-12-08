@@ -1,6 +1,6 @@
-export const BASE_URL = 'https://ctd-fe2-todo-v2.herokuapp.com/v1'
+export const BASE_URL = 'http://todo-api.ctd.academy:3000//v1'
 
-// link api: https://ctd-todo-api.herokuapp.com/
-// base url: https://ctd-todo-api.herokuapp.com/v1
+// link api: http://todo-api.ctd.academy:3000/#/
+// base url: http://todo-api.ctd.academy:3000//v1
 
 
