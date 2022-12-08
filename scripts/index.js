@@ -1,47 +1,10 @@
-///Desativando botão de acessar
-
-// function checkInputs(inputs) {
-
-//   var filled = true;
-
-// inputs.forEach(function(input) {
-  
-//   if(input.value === "") {
-//       filled = false;
-//   }
-
-//   });
-
-// return filled;
-
-// }
-
-// var inputs = document.querySelectorAll("input");
-// var button = document.querySelector("button");
-
-// inputs.forEach(function(input) {
-  
-// input.addEventListener("keyup", function() {
-
-//   if(checkInputs(inputs)) {
-//     button.disabled = false;
-//     button.style.opacity = ""
-//   } else {
-//     button.disabled = true;
-//     button.style.opacity = "35%"
-//   }
-
-// });
-
-// });
-
-
 ////////Validando O E-MAIL
 let btn = document.getElementById("botao");
 btn.setAttribute("disabled", true);
 btn.style.opacity = "40%"
 let email = document.getElementById("inputEmail")
-let validaEmail = false
+let validaEmail = false;
+let validaTotal = false;
 
 email.addEventListener("focus", function () {
   email.style.backgroundColor = "#E2DCDC"
@@ -49,7 +12,7 @@ email.addEventListener("focus", function () {
 
 //Blur ou KeyUp
 email.addEventListener("keyup", function () {
-  console.log("Saiu do campo do email");
+  // console.log("Saiu do campo do email");
 
   //Pega o elemento Small
   let emailValidation = document.getElementById('emailValidation');
@@ -68,15 +31,7 @@ email.addEventListener("keyup", function () {
     emailValidation.style.color = "#D53A3A"
     emailValidation.style.fontWeight = "bold"
 
-    //Bloqueado o botão de salvar
-    //   botaoCapturado.setAttribute("disabled", true);
-    //Trocando a cor do botão
-    //   botaoCapturado.style.backgroundColor = "#908E8E"
-
-    //Seta a variável para falso
-    //   emailFormularioOk = false;
-
-    //Valida de o email está em um formato correto
+//Valida de o email está em um formato correto
   } else if (!email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) { //Testa o erro
 
     // troca o fundo
@@ -87,33 +42,15 @@ email.addEventListener("keyup", function () {
     emailValidation.style.color = "#D53A3A"
     emailValidation.style.fontWeight = "bold"
 
-    //Bloqueado o botão de salvar
-    //   botaoCapturado.setAttribute("disabled", true);
-    //Trocando a cor do botão
-    //   botaoCapturado.style.backgroundColor = "#908E8E"
-
-    //Seta a variável para falso
-    //   emailFormularioOk = false;
-
-  } else {
+    } else {
     validaEmail = true
     //Se o campo estiver ok
     //Retira a mensage do small
     emailValidation.innerText = ""
 
     //Seta o BG do input como Sucesso
-    email.style.border = "solid 1.5px #13A02D";
-
-    //Seta a variável de controlle do formulário
-    //   emailFormularioOk = true;
-
-    //   if (nomeFormularioOk && emailFormularioOk) {
-    //     //Retorna o botão para "habilitado"
-    //     botaoCapturado.removeAttribute("disabled");
-    //     botaoCapturado.style.backgroundColor = "#0b5ed7"
-    //   }
+    email.style.border = "solid 1.5px #13A02D";  
   }
-
 });
 
 // validando senha:
@@ -132,7 +69,7 @@ senha.addEventListener("keyup", function () {
     validaSenha.innerText = "Campo obrigatório"
     validaSenha.style.color = "#D53A3A"
     validaSenha.style.fontWeight = "bold"
-    console.log(senha.value.length > 8)
+    // console.log(senha.value.length > 8)
     validacaoSenha = false;
   }
 
@@ -141,16 +78,75 @@ senha.addEventListener("keyup", function () {
     validacaoSenha = true;
     
   }
-  console.log(validaEmail)
-  console.log(validacaoSenha)
+  // console.log(validaEmail)
+  // console.log(validacaoSenha)
+  
   if (validaEmail  && validacaoSenha){
     btn.removeAttribute("disabled")
     btn.style.opacity = null
+    validaTotal = true;
   }
 })
 
 //normalizando as entradas
 
-let emailNormalizado = email.trim
-let senhaNormalizada = senha.trim
+// Criando Objeto json:
 
+btn.addEventListener("click", function(evento){
+  evento.preventDefault()
+let objeto = {
+  email : normalizaEmail(email.value),
+  password : normalizaSenha(senha.value)
+}
+let objetoJs = JSON.stringify(objeto);
+console.log(objetoJs)
+apiLogin(objetoJs)
+})
+
+// função de conexão com a api
+function apiLogin(retornoJs){
+
+  if(validaTotal == true){
+  let requestInit = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: retornoJs
+}
+fetch(`${baseUrl()}/users/login`, requestInit)
+.then(
+    resposta =>{
+      if(resposta.status == 200 || resposta.status == 201){
+        return resposta.json()
+      }else{
+        throw resposta
+      }
+    }
+)
+.then(
+  resposta =>{
+
+  validalogin(resposta)
+  }
+) 
+.catch(
+  erro =>{
+    naoValidaLogin(erro)
+  }
+)}
+}
+// função de promisse com sucesso
+function validalogin(resposta){
+  sessionStorage.setItem("jwt", resposta.jwt)
+  window.location.href = "tarefas.html"
+  // console.log(resposta)
+}
+//função de retorno de senha invalida/ insucesso de promisse
+function naoValidaLogin(resposta){
+  if(resposta.status == 400 || resposta.status == 404){
+    validaSenha.innerText = "Login e/ou senha incorreta"
+  }else{
+    alert("Servidor fora do ar")
+  }
+}
