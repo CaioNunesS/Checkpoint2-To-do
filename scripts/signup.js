@@ -259,7 +259,8 @@ fetch(`${baseUrl()}/users`, requestInit)
 function validaCadastro(resposta){
   sessionStorage.setItem("jwt", resposta.jwt)
   alert("Conta criada com sucesso!")
-  // console.log(resposta)
+  
+  window.location.reload()
 }
 //função de retorno de email cadastrado/ insucesso de promisse
 function naoValidaCadastro(resposta){
@@ -272,10 +273,4 @@ function naoValidaCadastro(resposta){
   console.log(resposta);
 }
 
-
-// console.log(inputName.value)
-// console.log(lastName.value)
-// console.log(inputEmailValidation.value)
-// console.log(pwdRegistration.value)
-// console.log(inputName.value)
 
