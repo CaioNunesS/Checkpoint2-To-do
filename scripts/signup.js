@@ -31,6 +31,8 @@ let validaSignup = false;
     else if(inputName.value == ""){
       nameRegistration.innerText = "Campo obrigatório";
       inputName.style.border = "solid 1.5px #D8341B";
+      nameRegistration.style.color = "#D53A3A"
+      nameRegistration.style.fontWeight = "bold"
     }
   
     else if (inputName.value.length >= 3) {
@@ -73,7 +75,9 @@ let validaSignup = false;
     
     else if (lastName.value == ""){
       lastNameRegistration.innerText = "Campo obrigatório";
+      lastNameRegistration.style.color = "#D53A3A"
       lastName.style.border = "solid 1.5px #D8341B";
+      lastNameRegistration.style.fontWeight = "bold"
     }
   
   });
