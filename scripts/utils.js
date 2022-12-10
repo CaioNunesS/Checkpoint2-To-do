@@ -1,4 +1,5 @@
 function normalizaEmail(entrada){
+    entrada.toLowerCase()
     return entrada.trim();
     // let normalizadoMinusculo = normalizado.toLowerCase();
 }
