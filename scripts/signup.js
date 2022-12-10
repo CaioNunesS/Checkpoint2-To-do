@@ -3,6 +3,7 @@ let btn = document.getElementById("btn");
 btn.setAttribute("disabled", true);
 btn.style.opacity = "40%";
 let validaSignup = false;
+let validaEmail = false;
 
     let zerarCampo = document.querySelectorAll(".zerar")
 
