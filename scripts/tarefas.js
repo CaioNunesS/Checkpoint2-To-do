@@ -54,17 +54,79 @@ async function capturaTarefa(){
     let taskResponse2 = await taskResponse.json();
     
     for (let i = 0; i < taskResponse2.length; i++) {
+        if(taskResponse2[i].completed == false){
      blocoTarefa.innerHTML += `
-        <li class="tarefa">
-        <div class="not-done"></div>
+        <li class="tarefa" id="${taskResponse2[i].id}">
+        <div class="not-done" onclick="atualizaTask(${taskResponse2[i].id})"></div>
             <div class="descricao">
               <p class="nome">${taskResponse2[i].description}</p>
               <p class="timestamp">Criada em: ${taskResponse2[i].createdAt}</p>
               <div class="apagarTarefa" id="apagar" onclick="apagarTask(${taskResponse2[i].id})"> Apagar Tarefa</div>
             </div>`
-        }
+        }else{
+            let tarefaTerminada01 = document.getElementById("tarefasTerminadas");
+       tarefaTerminada01.innerHTML += `
+       <li class="tarefa" id="${taskResponse2[i].id}">
+        <div class="not-done" onclick="atualizaTask(${taskResponse2[i].id})"></div>
+            <div class="descricao">
+              <p class="nome">${taskResponse2[i].description}</p>
+              <p class="timestamp">Criada em: ${taskResponse2[i].createdAt}</p>
+              <div class="apagarTarefa" id="apagar" onclick="apagarTask(${taskResponse2[i].id})"> Apagar Tarefa</div>
+            </div>`
+
+        }}
 
 }
+
+// funçao atualiza task
+
+async function atualizaTask(id){
+    let objetoJs = {
+        completed : true
+    }
+   let objetoJss = JSON.stringify(objetoJs)
+    console.log(objetoJss)
+
+    let requestAtualiza = {
+        method : "PUT",
+        headers : {
+            "authorization": token,
+            "Content-Type": "application/json"
+        },
+        body: objetoJss
+
+    }
+
+    let resposta = await fetch(`${baseUrl()}/tasks/${id}`, requestAtualiza)
+    let resposta2 = await resposta.json()
+    console.log(resposta2)
+
+    if(resposta2.completed){
+        let tarefaTerminada01 = document.getElementById("tarefasTerminadas");
+       tarefaTerminada01.innerHTML += `
+       <li class="tarefa" id="${resposta2.id}">
+        <div class="not-done" onclick="tarefaTerminada(${resposta2.id})"></div>
+            <div class="descricao">
+              <p class="nome">${resposta2.description}</p>
+              <p class="timestamp">Criada em: ${resposta2.createdAt}</p>
+              <div class="apagarTarefa" id="apagar" onclick="apagarTask(${resposta2.id})"> Apagar Tarefa</div>
+            </div>`
+            window.location.reload()
+    }
+}
+
+// botao que transfere task para terminada
+
+// function tarefaTerminada(id){
+// let bloco = document.getElementById(`${id}`)
+// let tarefaTerminada01 = document.getElementById("tarefasTerminadas");
+// tarefaTerminada01.appendChild(bloco.cloneNode(true));
+// let tarefasPendentes = document.getElementById("tarefas-pendentes2");
+// let teste = document.querySelector(".not-done")
+// teste.removeAttribute("click")
+// tarefasPendentes.removeChild(bloco);
+// }
+
 // evento inserir tarefa
 btnInserir.addEventListener("click", function(event){
     event.preventDefault()
