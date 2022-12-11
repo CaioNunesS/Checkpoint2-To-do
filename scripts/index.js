@@ -112,28 +112,32 @@ function apiLogin(retornoJs){
     },
     body: retornoJs
 }
-fetch(`${baseUrl()}/users/login`, requestInit)
-.then(
-    resposta =>{
-      if(resposta.status == 200 || resposta.status == 201){
-        return resposta.json()
-      }else{
-        throw resposta
-      }
-    }
-)
-.then(
-  resposta =>{
+startSpinner()
 
-  validalogin(resposta)
-  }
-) 
-.catch(
-  erro =>{
-    naoValidaLogin(erro)
-  }
-)}
+  fetch(`${baseUrl()}/users/login`, requestInit)
+  .then(
+      resposta =>{
+        if(resposta.status == 200 || resposta.status == 201){
+          return resposta.json()
+        }else{
+          throw resposta
+        }
+      }
+  )
+  .then(
+    resposta =>{
+  
+    validalogin(resposta)
+    }
+  ) 
+  .catch(
+    erro =>{
+      stopSpinner()
+      naoValidaLogin(erro)
+    }
+  )}
 }
+
 // função de promisse com sucesso
 function validalogin(resposta){
   sessionStorage.setItem("jwt", resposta.jwt)
