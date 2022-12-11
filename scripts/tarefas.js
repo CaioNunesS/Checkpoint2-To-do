@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function (){
         capturaDados() 
         capturaTarefa()
 }
-
+// função de conexao api para captar dados
 async function capturaDados(){
     let requestDados ={
         headers:{
@@ -35,7 +35,7 @@ async function capturaDados(){
  } 
 
 })
-
+// botao de confirmacao de saida
 encerrar.addEventListener("click", function(){
     let confirma = confirm("Tem certeza que deseja sair?")
     if(confirma){
@@ -86,21 +86,17 @@ async function atualizaTask(id){
     }
    let objetoJss = JSON.stringify(objetoJs)
     console.log(objetoJss)
-
-    let requestAtualiza = {
+   let requestAtualiza = {
         method : "PUT",
         headers : {
             "authorization": token,
             "Content-Type": "application/json"
         },
         body: objetoJss
-
     }
-
     let resposta = await fetch(`${baseUrl()}/tasks/${id}`, requestAtualiza)
     let resposta2 = await resposta.json()
-    console.log(resposta2)
-
+    // console.log(resposta2)
     if(resposta2.completed){
         let tarefaTerminada01 = document.getElementById("tarefasTerminadas");
        tarefaTerminada01.innerHTML += `
@@ -114,18 +110,6 @@ async function atualizaTask(id){
             window.location.reload()
     }
 }
-
-// botao que transfere task para terminada
-
-// function tarefaTerminada(id){
-// let bloco = document.getElementById(`${id}`)
-// let tarefaTerminada01 = document.getElementById("tarefasTerminadas");
-// tarefaTerminada01.appendChild(bloco.cloneNode(true));
-// let tarefasPendentes = document.getElementById("tarefas-pendentes2");
-// let teste = document.querySelector(".not-done")
-// teste.removeAttribute("click")
-// tarefasPendentes.removeChild(bloco);
-// }
 
 // evento inserir tarefa
 btnInserir.addEventListener("click", function(event){
