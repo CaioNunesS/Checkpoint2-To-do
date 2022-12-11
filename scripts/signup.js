@@ -159,7 +159,6 @@ let validaEmail = false;
   });
 
   pwdValidation.addEventListener("keyup", function (event){
-// console.log(event);
 
     if(pwdValidation.value === pwdRegistration.value){
 
