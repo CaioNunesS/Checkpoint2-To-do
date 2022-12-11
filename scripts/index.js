@@ -12,7 +12,7 @@ email.addEventListener("focus", function () {
 
 //Blur ou KeyUp
 email.addEventListener("keyup", function () {
-  // console.log("Saiu do campo do email");
+  
 
   //Pega o elemento Small
   let emailValidation = document.getElementById('emailValidation');
@@ -78,9 +78,7 @@ senha.addEventListener("keyup", function () {
     validacaoSenha = true;
     
   }
-  // console.log(validaEmail)
-  // console.log(validacaoSenha)
-  
+    
   if (validaEmail  && validacaoSenha){
     btn.removeAttribute("disabled")
     btn.style.opacity = null
@@ -106,7 +104,7 @@ apiLogin(objetoJs)
 // função de conexão com a api
 function apiLogin(retornoJs){
 
-  if(validaTotal == true){
+  if(validaTotal){
   let requestInit = {
     method: "POST",
     headers: {
