@@ -5,8 +5,6 @@ btn.style.opacity = "40%";
 let validaSignup = false;
 let validaEmail = false;
 
-    let zerarCampo = document.querySelectorAll(".zerar")
-
 //validando campo "nome"
 
   let inputName = document.getElementById("inputName");
@@ -102,23 +100,18 @@ let validaEmail = false;
     } else if (!inputEmailValidation.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) { //Testa o erro
   
       inputEmailValidation.style.border = "solid 1.5px #D8341B";
-  
       validationEmail.innerText = "E-mail inválido"
       validationEmail.style.color = "#D53A3A"
       validationEmail.style.fontWeight = "bold"
   
-  
     } else {
+
       validaEmail = true
       validationEmail.innerText = ""
-  
       inputEmailValidation.style.border = "solid 1.5px #13A02D";
-  
     }
   });
 
-
-// export default signup
 
   ///validando campo "senha"
   let pwdRegistration = document.getElementById("pwdRegistration");
@@ -138,14 +131,12 @@ let validaEmail = false;
       pwd.style.color = "#D53A3A"
       pwd.style.fontWeight = "bold"
       pwdRegistration.style.border = "solid 1.5px #D8341B";
-
     }
   
     else if (pwdRegistration.value.length >= 8) {
       pwd.innerText = ""
       validaPwdRegistration = true
-      pwdRegistration.style.border = "solid 1.5px #13A02D";
-      
+      pwdRegistration.style.border = "solid 1.5px #13A02D"; 
     }
     
    else if ((pwdRegistration.value == "")) {
@@ -157,13 +148,11 @@ let validaEmail = false;
     }
   });
 
-
   ///validando campo "confirmar a senha"
 
   let pwdValidation = document.getElementById("pwdValidation");
   let pwdValidati = document.getElementById("pwdValidati");
   let validaPwd = false;
-
 
   pwdValidation.addEventListener("focus", function () {
     pwdValidation.style.backgroundColor = "#E2DCDC"
@@ -173,8 +162,8 @@ let validaEmail = false;
 // console.log(event);
 
     if(pwdValidation.value === pwdRegistration.value){
-      pwdValidation.value.toString()
 
+      pwdValidation.value.toString()
       pwdValidati.innerText = ""
       validaPwd = true
       pwdValidation.style.border = "solid 1.5px #13A02D";
@@ -202,15 +191,11 @@ let validaEmail = false;
       btn.removeAttribute("disabled")
       btn.style.opacity = null
       validaSignup = true;
-      
     }
-    
 
-  // console.log(pwdValidation.value);
   });
 
   
-
 // Criando Objeto json:
 
 btn.addEventListener("click", function(evento){
@@ -223,7 +208,6 @@ let objeto = {
   password : normalizaSenha(pwdRegistration.value)
 }
 let objetoJs = JSON.stringify(objeto);
-console.log(objetoJs)
 apiCadastro(objetoJs)
 });
 
@@ -267,7 +251,7 @@ function validaCadastro(resposta){
   
   window.location.reload()
 }
-//função de retorno de email cadastrado/ insucesso de promisse
+//função de retorno validaçao do cadastrado/ insucesso de promisse
 function naoValidaCadastro(resposta){
   if(resposta.status == 400){
     validationEmail.innerText = "Email já cadastrado"
@@ -275,7 +259,6 @@ function naoValidaCadastro(resposta){
   else if(resposta.status == 404){
     alert("Servidor fora do ar")
   }
-  console.log(resposta);
 }
 
 
