@@ -1,110 +1,179 @@
-import getTasks from './requisicoes/getTasks.js'
-import createTask from './requisicoes/createTasks.js'
-import userGetMe from './requisicoes/userGetMe.js'
+// captando elementos DOM
 
+let nomeUsuario = document.getElementById("userName");
+let encerrar = document.getElementById("closeApp");
+let inserirTarefa = document.getElementById("novaTarefa");
+let btnInserir = document.getElementById("inserir");
+let tarefasPendentes = document.querySelector(".tarefas-pendentes")
+let token = sessionStorage.getItem("jwt")
+let blocoTarefa = document.getElementById("tarefas-pendentes2")
 
-const token = localStorage.getItem('token')
+// Função de inicio da pagina(não deixa abrir sem o token; carrega a lista de tarefas do usuário)
+document.addEventListener("DOMContentLoaded", function (){
+    if(!token){
+        window.location.href = "index.html"
+    }else{
+        capturaDados() 
+        capturaTarefa()
+}
+// função de conexao api para captar dados
+async function capturaDados(){
+    let requestDados ={
+        headers:{
+            "authorization": token
+        }
+    }
+    let dadosUser = await fetch(`${baseUrl()}/users/getMe`, requestDados);
+    let dadosUser2 = await dadosUser.json();
+    insereNome(dadosUser2)
+    
+    
+    }
+// função que insere o nome do usuário
+ function insereNome(nome){
+    nomeUsuario.innerText = `${nome.firstName} ${nome.lastName}`
+ } 
 
-//Pegando o input de add nova tarefa
-const novaTarefaInputElement = document.querySelector('#novaTarefaInput')
-//Pegando o botão de add nova tarefa
-const novaTarefaButtonElement = document.querySelector('#novaTarefaButton')
-// Botão de logout (sair da apliacação)
-const finalizarSessao = document.querySelector('#closeApp')
+})
+// botao de confirmacao de saida
+encerrar.addEventListener("click", function(){
+    let confirma = confirm("Tem certeza que deseja sair?")
+    if(confirma){
+    sessionStorage.removeItem("jwt")
+    window.location.href = "index.html"}
+})
 
-let novaTarefa = {
-  description: '',
-  completed: false
+// função que captura lista de tarefas e as lista no html
+async function capturaTarefa(){
+    let requestTarefa = {
+        headers :{
+            "authorization": token
+        }
+    }
+    let taskResponse = await fetch(`${baseUrl()}/tasks`, requestTarefa);
+    let taskResponse2 = await taskResponse.json();
+    
+    for (let i = 0; i < taskResponse2.length; i++) {
+        if(taskResponse2[i].completed == false){
+     blocoTarefa.innerHTML += `
+        <li class="tarefa" id="${taskResponse2[i].id}">
+        <div class="not-done" onclick="atualizaTask(${taskResponse2[i].id})"></div>
+            <div class="descricao">
+              <p class="nome">${taskResponse2[i].description}</p>
+              <p class="timestamp">Criada em: ${taskResponse2[i].createdAt}</p>
+              <div class="apagarTarefa" id="apagar" onclick="apagarTask(${taskResponse2[i].id})"> Apagar Tarefa</div>
+            </div>`
+        }else{
+            let tarefaTerminada01 = document.getElementById("tarefasTerminadas");
+       tarefaTerminada01.innerHTML += `
+       <li class="tarefa" id="${taskResponse2[i].id}">
+        <div class="not-done" onclick="atualizaTask(${taskResponse2[i].id})"></div>
+            <div class="descricao">
+              <p class="nome">${taskResponse2[i].description}</p>
+              <p class="timestamp">Criada em: ${taskResponse2[i].createdAt}</p>
+              <div class="apagarTarefa" id="apagar" onclick="apagarTask(${taskResponse2[i].id})"> Apagar Tarefa</div>
+            </div>`
+
+        }}
+
 }
 
+// funçao atualiza task
 
-
-
- // FUNÇÃO PARA CONTROLAR OS DADOS
-
-const verificaStatus = () =>{
-  if (token === null) {
-    // Caso o usuario tente acessar a página de tarefas sem fazer o login
-    // Será criada as propridades abaixo.
-    // A estilização foi feita no css de tarefas
-    
-    document.body.innerHTML = `
-    
-    <div class="paginaErro">
-      <div class='content'>
-     <!--
-      <h1>Opa opa!</h1>
-      <h3>Faltou fazer o login!</h3>
-      <button> <a href="../index.html"> Fazer login </a> </button> 
-     -->
-     </div>
-    </div>    
-    `
-
-    // ENVIANDO PARA A PÁGINA DE LOGIN SE TECLAR OU CLICAR
-    document.body.addEventListener('click', event => {
-      window.location.href = '../index.html'
-    })
-    document.body.addEventListener('keyup', event => {
-      window.location.href = '../index.html'
-    })
-  }
+async function atualizaTask(id){
+    let objetoJs = {
+        completed : true
+    }
+   let objetoJss = JSON.stringify(objetoJs)
+    console.log(objetoJss)
+   let requestAtualiza = {
+        method : "PUT",
+        headers : {
+            "authorization": token,
+            "Content-Type": "application/json"
+        },
+        body: objetoJss
+    }
+    let resposta = await fetch(`${baseUrl()}/tasks/${id}`, requestAtualiza)
+    let resposta2 = await resposta.json()
+    // console.log(resposta2)
+    if(resposta2.completed){
+        let tarefaTerminada01 = document.getElementById("tarefasTerminadas");
+       tarefaTerminada01.innerHTML += `
+       <li class="tarefa" id="${resposta2.id}">
+        <div class="not-done" onclick="tarefaTerminada(${resposta2.id})"></div>
+            <div class="descricao">
+              <p class="nome">${resposta2.description}</p>
+              <p class="timestamp">Criada em: ${resposta2.createdAt}</p>
+              <div class="apagarTarefa" id="apagar" onclick="apagarTask(${resposta2.id})"> Apagar Tarefa</div>
+            </div>`
+            window.location.reload()
+    }
 }
 
-
-
-const tarefas = () => {
- 
-  verificaStatus()
-
-  userGetMe()
-
-  getTasks()
-
-  novaTarefaButtonElement.addEventListener('click', event => {
+// evento inserir tarefa
+btnInserir.addEventListener("click", function(event){
     event.preventDefault()
+    let tarefaInsere = {
+        description : `${inserirTarefa.value}`,
+        completed : false
+    }
+    let tarefaInsereJs = JSON.stringify(tarefaInsere)
+    insereTask(tarefaInsereJs);
+})
 
-    if (novaTarefaInputElement.value == '') {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Epa',
-        text: 'Faltou uma tarefinha',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    } else {
-      //Armazenando o valor a propriedade no objeto
-      novaTarefa.description = novaTarefaInputElement.value
-      
-      //createTasks(novaTarefa)
-      
-      createTask(novaTarefa)
-      novaTarefaInputElement.value = ''
+// funçao conecta api para cadastrar nova tarefa
+async function insereTask(recebe){
+    let requestInsere = {
+        method: "POST",
+        headers :{
+            "authorization": token,
+            "Content-Type": "application/json"
+        },
+        body : recebe
     }
     
-  })
+    let retorno01 = await fetch(`${baseUrl()}/tasks`, requestInsere);
+    let retorno02 = await retorno01.json();
 
-  //LOGOUT
-  finalizarSessao.addEventListener('click', event => {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 1200,
-      timerProgressBar: true
-    })
+// insere tarefa no bloco
 
-    Toast.fire({
-      icon: 'success',
-      title: `Tchau ${localStorage.getItem('nome')} 👋`,
-      text: 'Até a próxima'
-    })
-    setTimeout(() => {
-      localStorage.clear()
-      window.location = '/index.html'
-    }, 1501)
-  })
+    blocoTarefa.innerHTML += `
+        <li class="tarefa">
+        <div class="not-done"></div>
+            <div class="descricao">
+              <p class="nome">${retorno02.description}</p>
+              <p class="timestamp">Criada em: ${retorno02.createdAt}</p>
+              <div class="apagarTarefa" id="apagar" onclick="apagarTask(${retorno02.id})"> Apagar Tarefa</div>
+            </div>`
+            
+    }
+// função assincrona para apagar tarefa
+
+async function apagarTask(id){
+    let confirmacao = confirm("Tem certeza que deseja apagar?")
+    if(confirmacao){
+    let requestDelete = {
+        method : "DELETE",
+        headers : {
+            "authorization": token
+        }
+    }
+    try{
+    let solicita1 = await fetch(`${baseUrl()}/tasks/${id}`, requestDelete);
+    if(solicita1.status == 200){
+    let solicita2 = await solicita1.json();
+    alert(solicita2)
+    window.location.reload()
+    }else{
+        throw solicita1;
+    }
+}catch{
+alert("Tarefa não eliminada")
+}}
 }
 
-export default tarefas
+
+
+
+

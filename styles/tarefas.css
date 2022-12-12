@@ -45,6 +45,16 @@ a {
   padding: 5px 10px;
   cursor: pointer;
 }
+.apagarTarefa {
+  margin-left: 15px;
+  font-size: .7em;
+  background-color: rgb(185, 47, 223);
+  color: white;
+  border-radius: 50vh;
+  padding: 5px 10px;
+  cursor: pointer;
+
+}
 
 /* Nova tarefa ----------------------------------------------------------- */
 
