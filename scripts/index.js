@@ -10,28 +10,23 @@ email.addEventListener("focus", function () {
   email.style.backgroundColor = "#E2DCDC"
 });
 
-//Blur ou KeyUp
 email.addEventListener("keyup", function () {
   
-
   //Pega o elemento Small
   let emailValidation = document.getElementById('emailValidation');
-
 
   //Altera o fundo do campo ao sair do click 
   email.style.backgroundColor = "#FFFFFF"
 
   //Valida se o campo É VAZIO
-  if (!email.value) { //Se não foi preenchido
-    // troca o fundo
-    //   email.style.border = "solid 1.5px #13A02D";
+  if (!email.value) { 
 
     //Seta a mensage no small (e configura)
     emailValidation.innerText = "Campo obrigatório"
     emailValidation.style.color = "#D53A3A"
     emailValidation.style.fontWeight = "bold"
 
-//Valida de o email está em um formato correto
+//Valida se o email está em um formato correto
   } else if (!email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) { //Testa o erro
 
     // troca o fundo

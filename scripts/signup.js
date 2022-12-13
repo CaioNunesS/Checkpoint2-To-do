@@ -11,14 +11,10 @@ let validaEmail = false;
   let nameRegistration = document.getElementById("nameRegistration");
   let validaNome = false;
 
-//   function normalizeInputName(nome){
-//     return nome.trim()
-    
-// };
-
   inputName.addEventListener("focus", function () {
     inputName.style.backgroundColor = "#E2DCDC"
   });
+
   inputName.addEventListener("keyup", function () {
 
     let validaCampo = normalizeInputName(inputName.value)
@@ -37,18 +33,12 @@ let validaEmail = false;
       nameRegistration.style.fontWeight = "bold"
     }
   
-    
   });
 
   /// validando campo "sobrenome"
   let lastName = document.getElementById("lastName");
   let lastNameRegistration = document.getElementById("lastNameRegistration");
   let validaLastName = false;
-
-//   function normalizeLastName(sobrenome){
-//     return sobrenome.trim()
-    
-// };
 
   lastName.addEventListener("focus", function () {
     lastName.style.backgroundColor = "#E2DCDC"
@@ -256,6 +246,7 @@ function validaCadastro(resposta){
   
   window.location.reload()
 }
+
 //função de retorno validaçao do cadastrado/ insucesso de promisse
 function naoValidaCadastro(resposta){
   if(resposta.status == 400){
