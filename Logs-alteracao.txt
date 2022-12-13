@@ -1,0 +1,5 @@
+# Checkpoint2-To-do
+
+Desenvolvedores:
+Caio Nunes- Validações e botão da tela de cadastro, validação email (login), Conexão API (página de cadastro), documentação do código (comentários)
+Renata Carmi Armel-  Validação da senha (login) e botões (login e finalização de sessão), Conexão API (Login e Tarefas), manipulação de DOM nas tasks, documentação do código(comentários)
