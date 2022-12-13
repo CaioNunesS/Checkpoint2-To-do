@@ -11,20 +11,23 @@ let validaEmail = false;
   let nameRegistration = document.getElementById("nameRegistration");
   let validaNome = false;
 
-  function normalizeInputName(nome){
-    return nome.trim()
+//   function normalizeInputName(nome){
+//     return nome.trim()
     
-};
+// };
 
   inputName.addEventListener("focus", function () {
     inputName.style.backgroundColor = "#E2DCDC"
   });
   inputName.addEventListener("keyup", function () {
-    inputName.value.toString()
-    if (inputName.value == true) {
-  
-      nameRegistration.style.color = "#D53A3A";
-      nameRegistration.style.fontWeight = "bold";
+
+    let validaCampo = normalizeInputName(inputName.value)
+    
+    if (validaCampo.length >= 3) {
+      nameRegistration.innerText = ""
+      validaNome = true
+      inputName.style.border = "solid 1.5px #13A02D";
+      
     }
     
     else if(inputName.value == ""){
@@ -34,13 +37,7 @@ let validaEmail = false;
       nameRegistration.style.fontWeight = "bold"
     }
   
-    else if (inputName.value.length >= 3) {
-      nameRegistration.innerText = ""
-      validaNome = true
-      inputName.style.border = "solid 1.5px #13A02D";
-      
-    }
-  
+    
   });
 
   /// validando campo "sobrenome"
@@ -48,29 +45,33 @@ let validaEmail = false;
   let lastNameRegistration = document.getElementById("lastNameRegistration");
   let validaLastName = false;
 
-  function normalizeLastName(sobrenome){
-    return sobrenome.trim()
+//   function normalizeLastName(sobrenome){
+//     return sobrenome.trim()
     
-};
+// };
 
   lastName.addEventListener("focus", function () {
     lastName.style.backgroundColor = "#E2DCDC"
   });
 
   lastName.addEventListener("keyup", function () {
-    lastName.value.toString()
-    if (lastName.value == true) {
-  
-      lastNameRegistration.style.color = "#D53A3A";
-      lastNameRegistration.style.fontWeight = "bold";
-    }
-  
-    else if (lastName.value.length >= 3) {
+    
+    let validaCampo = normalizeLastName(lastName.value)
+
+    
+    if (validaCampo.length >= 3) {
       lastNameRegistration.innerText = ""
       validaLastName = true
       lastName.style.border = "solid 1.5px #13A02D";
       
     }
+
+    else if (lastName.value == true) {
+  
+      lastNameRegistration.style.color = "#D53A3A";
+      lastNameRegistration.style.fontWeight = "bold";
+    }
+  
     
     else if (lastName.value == ""){
       lastNameRegistration.innerText = "Campo obrigatório";
@@ -125,7 +126,9 @@ let validaEmail = false;
     pwdRegistration.addEventListener("keyup", function () {
     pwdRegistration.value.toString()
 
-     if (pwdRegistration.value.length < 8){
+    let validaCampo = normalizaSenha(pwdRegistration.value)
+    if ((validaCampo.length < 8)) {
+  
       
       pwd.innerText = "Minimo 8 digitos"
       pwd.style.color = "#D53A3A"
