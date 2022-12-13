@@ -222,8 +222,10 @@ function apiCadastro(retornoJs){
     headers: {
         "Content-Type": "application/json"
     },
-    body: retornoJs
+    body: retornoJs    
 }
+startSpinnerSigup()
+
 fetch(`${baseUrl()}/users`, requestInit)
 .then(
     resposta =>{
@@ -242,6 +244,7 @@ fetch(`${baseUrl()}/users`, requestInit)
 ) 
 .catch(
   erro =>{
+    stopSpinnerSignup()
     naoValidaCadastro(erro)
   }
 )}
