@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function (){
     if(!token){
         window.location.href = "index.html"
     }else{
+        renderizarSkeletons(3, ".tarefas-pendentes")
+        renderizarSkeletons(3, ".tarefas-terminadas")
         capturaDados() 
         capturaTarefa()
 }
@@ -50,11 +52,16 @@ async function capturaTarefa(){
             "authorization": token
         }
     }
+    
+    
     let taskResponse = await fetch(`${baseUrl()}/tasks`, requestTarefa);
     let taskResponse2 = await taskResponse.json();
-    
+    removerSkeleton(".tarefas-pendentes")
+    removerSkeleton(".tarefas-terminadas")
+        
     for (let i = 0; i < taskResponse2.length; i++) {
         if(taskResponse2[i].completed == false){
+            
      blocoTarefa.innerHTML += `
         <li class="tarefa" id="${taskResponse2[i].id}">
         <div class="not-done" onclick="atualizaTask(${taskResponse2[i].id})"></div>
@@ -64,6 +71,7 @@ async function capturaTarefa(){
               <div class="apagarTarefa" id="apagar" onclick="apagarTask(${taskResponse2[i].id})"> Apagar Tarefa</div>
             </div>`
         }else{
+            // removerSkeleton(".tarefas-pendentes")
             let tarefaTerminada01 = document.getElementById("tarefasTerminadas");
        tarefaTerminada01.innerHTML += `
        <li class="tarefa" id="${taskResponse2[i].id}">
@@ -75,7 +83,7 @@ async function capturaTarefa(){
             </div>`
 
         }}
-
+  
 }
 
 // funcao para mudar booleano para false
@@ -141,6 +149,7 @@ btnInserir.addEventListener("click", function(event){
     }
     let tarefaInsereJs = JSON.stringify(tarefaInsere)
     insereTask(tarefaInsereJs);
+    
 })
 
 // funçao conecta api para cadastrar nova tarefa
@@ -170,6 +179,7 @@ async function insereTask(recebe){
               <p class="timestamp">Criada em: ${retorno02.createdAt}</p>
               <div class="apagarTarefa" id="apagar" onclick="apagarTask(${retorno02.id})"> Apagar Tarefa</div>
             </div>`
+            location.reload();
             
     }catch {
         alert("Erro")

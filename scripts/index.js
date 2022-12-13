@@ -79,7 +79,6 @@ senha.addEventListener("keyup", function () {
     
   }
 
-    
   if (validaEmail  && validacaoSenha){
     btn.removeAttribute("disabled")
     btn.style.opacity = null
