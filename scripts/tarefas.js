@@ -67,7 +67,7 @@ async function capturaTarefa(){
             let tarefaTerminada01 = document.getElementById("tarefasTerminadas");
        tarefaTerminada01.innerHTML += `
        <li class="tarefa" id="${taskResponse2[i].id}">
-        <div class="not-done" onclick="atualizaTask(${taskResponse2[i].id})"></div>
+        <div class="not-done" onclick="validaFalse(${taskResponse2[i].id})"></div>
             <div class="descricao">
               <p class="nome">${taskResponse2[i].description}</p>
               <p class="timestamp">Criada em: ${taskResponse2[i].createdAt}</p>
@@ -75,6 +75,27 @@ async function capturaTarefa(){
             </div>`
 
         }}
+
+}
+
+// funcao para mudar booleano para false
+
+async function validaFalse(id){
+    let objetoJs = {
+        completed : false
+    }
+   let objetoJss = JSON.stringify(objetoJs)
+   let requestAtualiza = {
+        method : "PUT",
+        headers : {
+            "authorization": token,
+            "Content-Type": "application/json"
+        },
+        body: objetoJss
+    }
+    let resposta = await fetch(`${baseUrl()}/tasks/${id}`, requestAtualiza)
+    let resposta2 = await resposta.json()
+    window.location.reload()
 
 }
 
@@ -115,7 +136,7 @@ async function atualizaTask(id){
 btnInserir.addEventListener("click", function(event){
     event.preventDefault()
     let tarefaInsere = {
-        description : `${inserirTarefa.value}`,
+        description : `${inserirTarefa.value.trim()}`,
         completed : false
     }
     let tarefaInsereJs = JSON.stringify(tarefaInsere)
@@ -124,6 +145,9 @@ btnInserir.addEventListener("click", function(event){
 
 // funçao conecta api para cadastrar nova tarefa
 async function insereTask(recebe){
+    inserirTarefa.toString()
+    
+    if(inserirTarefa.value.length >= 5 && inserirTarefa != null){
     let requestInsere = {
         method: "POST",
         headers :{
@@ -132,7 +156,7 @@ async function insereTask(recebe){
         },
         body : recebe
     }
-    
+   try { 
     let retorno01 = await fetch(`${baseUrl()}/tasks`, requestInsere);
     let retorno02 = await retorno01.json();
 
@@ -147,7 +171,14 @@ async function insereTask(recebe){
               <div class="apagarTarefa" id="apagar" onclick="apagarTask(${retorno02.id})"> Apagar Tarefa</div>
             </div>`
             
+    }catch {
+        alert("Erro")
     }
+}else{
+    alert("Insira no minimo 5 caracteres")
+    
+}}
+
 // função assincrona para apagar tarefa
 
 async function apagarTask(id){

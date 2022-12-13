@@ -63,8 +63,8 @@ senha.addEventListener("focus", function () {
   senha.style.backgroundColor = "#E2DCDC"
 });
 senha.addEventListener("keyup", function () {
-  senha.value.toString()
-  if ((senha.value.length < 8)) {
+  let validaCampo = normalizaSenha(senha.value)
+  if ((validaCampo.length < 8)) {
 
     validaSenha.innerText = "Campo obrigatório"
     validaSenha.style.color = "#D53A3A"
@@ -73,17 +73,19 @@ senha.addEventListener("keyup", function () {
     validacaoSenha = false;
   }
 
-  if (senha.value.length >= 8) {
+  else {
     validaSenha.innerText = ""
     validacaoSenha = true;
     
   }
+
     
   if (validaEmail  && validacaoSenha){
     btn.removeAttribute("disabled")
     btn.style.opacity = null
     validaTotal = true;
   }
+  console.log(senha.value)
 })
 
 //normalizando as entradas
@@ -97,7 +99,7 @@ let objeto = {
   password : normalizaSenha(senha.value)
 }
 let objetoJs = JSON.stringify(objeto);
-console.log(objetoJs)
+// console.log(objetoJs)
 apiLogin(objetoJs)
 })
 
